@@ -1,0 +1,202 @@
+trepan 0.4.5 2015-04-23
+- Fix bug in "next" command
+- Try to fix RST in pypi
+
+trepan 0.4.3 2015-02-17
+
+- If help regexp matches a single command, give help for that.
+- Doc fixes
+- Sync with python3 code
+
+trepan 0.4.2 2015-02-17
+
+- Should work with pip without needing --egg. Thanks to Georg Brandl
+- Go over set/show help
+- Go over docs and increase docstring RsT use
+- Finish removing flake8 warnings
+- Fix bugs in startup-file loading
+- Fix bug in signal-name lookup. From Georg Brandl
+
+trepan 0.4.1 2014-12-23 Late SF
+
+- Get computed_displaywidth from updated columnize. Should work on OSX
+- Sections get an underline when we syntax highlight is not in effect
+- Add README.rst for pypi
+- flake8 lint warning/error reduction
+
+
+trepan 0.4.0 2014-12-24 Ph. Mad.
+
+- Add fin and kill! aliases
+- Fix bug in eval? elif
+
+trepan 0.3.9 2014-10-25
+
+- Add/fix --client option. code.google.com issue #17.
+- More lint warnings removed.
+
+trepan 0.3.8 2014-10-25
+
+- Put back namespace packages. pip works as long as --egg option is used
+  easy_install just works. More flake8 linting.
+
+trepan 0.3.7 2014-10-25
+
+- More flake8 linting. Another attempt to get this to install cleanly
+  with pip and easy_install. This time, for sure! For pip: nuke
+  namespace packages
+
+trepan 0.3.6 2014-10-25
+
+- More flake8 linting. Another attempt to get this to install cleanly with
+  pip and easy_install.
+
+trepan 0.3.5 2014-10-21
+
+- More flake8 linting. Another attempt to get this to install cleanly with
+  pip and easy_install.
+
+trepan 0.3.4 2014-10-19
+
+- Reduce import_relative, quit and restart should work better
+- More linting.
+
+trepan 0.3.3 2014-10-10
+
+-  Another attempt to make this pip install cleanly
+
+trepan 0.3.2 2014-10-10
+
+-  Another attempt to make this pip install cleanly
+
+trepan 0.3.1 2014-10-08
+
+-  botched release 0.3.0
+
+trepan 0.3.0 2014-10-08
+
+-  make "quit" really quit rather than go into post-mortem.
+-  reduce warnings
+
+trepan 0.2.9 2014-10-04
+
+- fixes to reduce namespace clashes until this can be rewritten better
+- remote execution options --host and --port
+- small bug fixes
+
+trepan 0.2.8 2013-05-12
+
+- redo botched release
+
+trepan 0.2.7 2013-05-12
+
+- Fill out command completion more
+- Fix bug in removing a display.
+
+trepan 0.2.6 2013-04-19
+
+- Rename egg from pydbgr to trepan. Script to run is trepan2.
+- Start command completion
+- Command history reading and saving works.
+
+0.2.6 2013-03-24
+- Handle Python 2.4
+
+0.2.5 2013-03-23
+
+- eval? handles if/while expressions better
+- Numerous small bug fixes
+- Make code more Python3 compatible to reduce the difference between this
+  and python3-trepan.
+- Start linting code via pyflakes
+
+0.2.4 2013-03-15 Ron Frankel Ides of March
+
+- Add debugger "alias" and "unalias" commands
+
+- Better handling of "info args"
+
+- Start Python3 compability. However for something that
+  works with Python3 see work-in-progress
+  https://code.google.com/p/python3-trepan/
+
+0.2.3 2013-02-02
+
+- Add debugger "macro" command
+- Start Bullwinkle processor
+
+0.2.2 01-12-13
+
+- More pervive use of ReStructuredText and fixes to the
+  formatting code.
+
+0.2.1 01-05-13
+
+- Add call stack and disassembly colorization
+- Command docstring are now in ReStructuredText so they are
+  colorized and reformatted according to width setting
+- api run_eval() and and run_exec() strings are now saveed
+  and remapped to a temporary file for front ends.
+- debugger command names are downcased.
+- Some code restructuring.
+
+
+0.2.0 01-01-13
+
+- Port more of the trepanning debugger features here
+  * Terminal output for errors, sections, and code syntax highlighting
+  * Smart Eval (eval sections of the source line of code)
+
+0.1.6 12-27-12
+
+- Try to repackage for 2.7 so we don't get easy install egg errors.
+  (or at least fewer of them).
+
+0.1.5 10-27-10
+
+- "p" command renamed to "pr" like trepanning debuggers
+- set maxstrsize -> set maxstring and fix bug to update that
+- remove pyflakes warnings
+- show return value in nested debugging and add level of parenthsis in prompts
+- report PC offset in info program and disassemble
+- some bug fixes
+
+0.1.4 06-12-10 the Fleetwood
+
+- Show return value when at a return event
+- Fix up ipython %pydbgr support.
+- Some support for nested debugging (debugger command "debug")
+- eval'ing quit() is accepted as quit
+- Debugger command "retval" becomes "info return" to match rbdbgr
+- Some small bug fixes.
+
+===================
+0.1.3 12-25-09
+
+- Small bugs in invoking without a Python program and off-by one in 'finish'
+  command
+- Remove emacs code. For emacs support see http://github.com/rocky/emacs-dbgr
+
+===================
+0.1.2 10-27-09 Halala ngosuku lokuzalwa
+
+- When we are stopped at a breakpoint, make that the event.
+- "info file xx lines" -> "info file xx brkpts"
+- "info tracesets" -> "info events"
+- "exit" doesn't need to have a stack to run
+- allow entering the debugger without having to run a Python script
+  (requested by Yaroslav Halchenko)
+- pydbgr.api.debug(step=ddd) -> pydbgr.api.debug(step_ignore=ddd)
+- allow getting regular expression patterns in help. (Suggested by Mike Welles)
+- Misc doc and bug fixes
+- add "edit" command
+
+===================
+0.1.1 07-04-09 -
+- sys.argv had not been set correctly for debugged program. (Issue #1)
+- Allow disassembly of compiled python files (.pyc)
+
+===================
+0.1.0 03-15-09 - Ron Frankel Release
+
+- Initial release

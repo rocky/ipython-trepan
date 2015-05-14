@@ -106,5 +106,5 @@ def load_ipython_extension(ip):
     ip.register_magics(MagicsTrepan)
     print("\ntrepanmagic.py loaded")
 
-magicsTrepan = TrepanMagics(ip)
-ip.register_magics(magicsTrepan)
+ip = get_ipython()
+load_ipython_extension(ip)

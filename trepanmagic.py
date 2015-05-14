@@ -10,18 +10,34 @@ IPython Magics for trepan debugging.
 
   The ``trepan`` module needs to be installed first
 
+.. sourcecode:: ipython
+
+In [1]: %load_ext trepanmagic
+
+In [2]: import os
+
+In [3]: %trepan_eval os.path.join("a", "b")
+
+In [4]: %trepan --highlight -- pygmentize -f terminal /tmp/example.py 1 3
+
 Usage
 =====
 
-``%trepan_eval *python-statement*``
-``%trepan python-script [args...]``
+The following magic commands are provided:
+
+``%trepan_eval``
 
 Use ``%trepan_eval`` to evaluate an expression under the trepan debugger
-For example:
 
-    %trepan_eval os.path.join('/tmp', 'foo')
+Evaluates an expression under the trepan debugger
 
-Use ``%trepan`` to run a python script. For exmaple:
+``%trepan``
+
+Use ``%trepan`` to invoke a top-level Python program with arguments.
+You can use ``--`` to separate the debugger arguements from the
+program's arguements
+
+
 
     %trepan --highlight -- pygmentize -f terminal /tmp/script.py
 """
@@ -49,15 +65,14 @@ from trepan import exception as Mexcept
 
 @magics_class
 class TrepanMagics(Magics):
-    """Magics related to trepan debugging
-    """
+    """Magics related to trepan debugging"""
     def __init__(self, shell):
         super(TrepanMagics, self).__init__(shell)
         self.shell = shell
 
     @line_magic
     def trepan_eval(self, python_statement):
-
+        """%trepan_eval *python-expression*"""
         tb_fn = lambda etype, value, tb: \
             self.shell.showtraceback((etype, value, tb), tb_offset=0)
 
@@ -72,6 +87,7 @@ class TrepanMagics(Magics):
 
     @line_magic
     def trepan(self, line):
+        """%trepan *trepan-options [--] *python-script* [*args*...]"""
         sys_argv = shlex.split('trepan --from_ipython ' + line)
 
         tb_fn = lambda etype, value, tb: \
@@ -82,9 +98,13 @@ class TrepanMagics(Magics):
         except Mexcept.DebuggerQuit:
             pass
 
+def load_ipython_extension(ip):
+    # The `ipython` argument is the currently active `InteractiveShell`
+    # instance, which can be used in any way. This allows you to register
+    # new magics or aliases, for example.
+    magicsTrepan = TrepanMagis(ip)
+    ip.register_magics(MagicsTrepan)
+    print("\ntrepanmagic.py loaded")
 
-ip = get_ipython()
-ip.register_magics(TrepanMagics)
-
-
-print("\ntrepanmagic.py loaded")
+magicsTrepan = TrepanMagis(ip)
+ip.register_magics(magicsTrepan)

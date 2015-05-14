@@ -102,7 +102,7 @@ def load_ipython_extension(ip):
     # The `ipython` argument is the currently active `InteractiveShell`
     # instance, which can be used in any way. This allows you to register
     # new magics or aliases, for example.
-    magicsTrepan = TrepanMagis(ip)
+    magicsTrepan = TrepanMagics(ip)
     ip.register_magics(MagicsTrepan)
     print("\ntrepanmagic.py loaded")
 

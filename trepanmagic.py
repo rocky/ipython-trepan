@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 ===========
-trepantmagic
+trepanmagic
 ===========
 
 IPython Magics for trepan debugging.
@@ -89,10 +89,6 @@ class TrepanMagics(Magics):
     def trepan(self, line):
         """%trepan *trepan-options [--] *python-script* [*args*...]"""
         sys_argv = shlex.split('trepan --from_ipython ' + line)
-
-        tb_fn = lambda etype, value, tb: \
-            self.shell.showtraceback((etype, value, tb), tb_offset=1)
-
         try:
             return trepan.cli.main(sys_argv=sys_argv)
         except Mexcept.DebuggerQuit:

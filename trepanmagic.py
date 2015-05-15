@@ -44,8 +44,8 @@ program's arguements
 
 import IPython
 if IPython.version_info[0] < 3:
-    raise ImportError, ("You need IPython 3.x, got %d.%d%d" %
-                        IPython.version_info[:3])
+    raise ImportError("You need IPython 3.x, got %d.%d%d" %
+                      IPython.version_info[:3])
 
 from IPython.core.magic import (register_line_magic
                                 , line_magic, Magics, magics_class
@@ -57,7 +57,7 @@ import IPython.core.ultratb as ultratb
 try:
     import trepan.api
 except ImportError:
-    raise ImportError, "You need trepan installed: pip install trepan"
+    raise ImportError("You need trepan installed: pip install trepan")
 
 import trepan.cli
 import shlex

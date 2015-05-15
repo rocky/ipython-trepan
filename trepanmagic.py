@@ -103,8 +103,9 @@ def load_ipython_extension(ip):
     # instance, which can be used in any way. This allows you to register
     # new magics or aliases, for example.
     magicsTrepan = TrepanMagics(ip)
-    ip.register_magics(MagicsTrepan)
+    ip.register_magics(magicsTrepan)
     print("\ntrepanmagic.py loaded")
 
-ip = get_ipython()
-load_ipython_extension(ip)
+if __name__ == '__main__':
+    ip = get_ipython()
+    load_ipython_extension(ip)

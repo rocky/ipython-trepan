@@ -47,13 +47,11 @@ if IPython.version_info[0] < 3:
     raise ImportError("You need IPython 3.x, got %d.%d%d" %
                       IPython.version_info[:3])
 
-from IPython.core.magic import (register_line_magic
-                                , line_magic, Magics, magics_class
+from IPython.core.magic import (line_magic, Magics, magics_class
                                 # , cell_magic
                                 # , register_cell_magic
                                 # , register_line_cell_magic
                                 )
-import IPython.core.ultratb as ultratb
 try:
     import trepan.api
 except ImportError:
@@ -62,6 +60,7 @@ except ImportError:
 import trepan.cli
 import shlex
 from trepan import exception as Mexcept
+
 
 @magics_class
 class TrepanMagics(Magics):
@@ -80,8 +79,9 @@ class TrepanMagics(Magics):
             return trepan.api.run_eval(python_statement,
                                        start_opts = {'force': True,
                                                      'tb_fn': tb_fn},
-                                       debug_opts = {'from_ipython': self.shell},
-                                       globals_=self.shell.user_ns)
+                                       debug_opts = {
+                                           'from_ipython': self.shell},
+                                       globals_ = self.shell.user_ns)
         except Mexcept.DebuggerQuit:
             pass
 
@@ -94,6 +94,18 @@ class TrepanMagics(Magics):
         except Mexcept.DebuggerQuit:
             pass
 
+    @line_magic
+    def trepan_pm(self):
+        """%trepan_pm
+
+Run post-mortem debugger on last traceback
+        """
+        try:
+            return trepan.post_mortem.pm()
+        except Mexcept.DebuggerQuit:
+            pass
+
+
 def load_ipython_extension(ip):
     # The `ipython` argument is the currently active `InteractiveShell`
     # instance, which can be used in any way. This allows you to register
@@ -103,5 +115,5 @@ def load_ipython_extension(ip):
     print("\ntrepanmagic.py loaded")
 
 if __name__ == '__main__':
-    ip = get_ipython()
+    ip = get_ipython()  # NOQA
     load_ipython_extension(ip)

@@ -57,7 +57,7 @@ try:
 except ImportError:
     raise ImportError("You need trepan installed: pip install trepan3k")
 
-import trepan.cli
+from trepan.__main__ import main as trepan_main
 import shlex
 from trepan import exception as Mexcept
 
@@ -85,27 +85,12 @@ class TrepanMagics(Magics):
         except Mexcept.DebuggerQuit:
             pass
 
-    def trepan_call(self, func, *args, **kwds):
-        """%trepan_call *function* *arg1*"""
-        tb_fn = lambda etype, value, tb: \
-            self.shell.showtraceback((etype, value, tb), tb_offset=0)
-
-        try:
-            return trepan.api.run_call(func=func,
-                                       debug_opts = {
-                                           'from_ipython': self.shell},
-                                       start_opts = {'force': True,
-                                                     'tb_fn': tb_fn},
-                                       *args, **kwds)
-        except Mexcept.DebuggerQuit:
-            pass
-
     @line_magic
     def trepan(self, line):
         """%trepan *trepan-options [--] *python-script* [*args*...]"""
         sys_argv = shlex.split('trepan --from_ipython ' + line)
         try:
-            return trepan.cli.main(sys_argv=sys_argv)
+            return trepan_main(sys_argv=sys_argv)
         except Mexcept.DebuggerQuit:
             pass
 
@@ -132,8 +117,5 @@ def load_ipython_extension(ip):
 if __name__ == '__main__':
     ip = get_ipython()  # NOQA
     tm = TrepanMagics(ip)
-
-    def trepan_call(func, *args, **kwds):
-        tm.trepan_call(func, *args, **kwds)
 
     load_ipython_extension(ip)

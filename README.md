@@ -15,7 +15,7 @@ To install execute the the following code snippet in an IPython shell or IPython
 or put *trepanmagic.py* in `$HOME/.python/profile_default/startup`:
 
 ```
-    cd `$HOME/.python/profile_default/startup`:
+    cd $HOME/.ipython/profile_default/startup
     wget https://raw.github.com/rocky/ipython-trepan/master/trepanmagic.py
 ```
 

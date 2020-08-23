@@ -34,8 +34,8 @@ Evaluates an expression under the trepan debugger
 ``%trepan``
 
 Use ``%trepan`` to invoke a top-level Python program with arguments.
-You can use ``--`` to separate the debugger arguements from the
-program's arguements
+You can use ``--`` to separate the debugger arguments from the
+program's arguments
 
 
 
@@ -95,7 +95,7 @@ class TrepanMagics(Magics):
             pass
 
     @line_magic
-    def trepan_pm(self):
+    def trepan_pm(self, line):
         """%trepan_pm
 
 Run post-mortem debugger on last traceback
